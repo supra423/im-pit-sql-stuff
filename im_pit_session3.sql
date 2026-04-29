@@ -1,0 +1,1 @@
+DELETE FROM property_for_rent WHERE pfr_no = 10;
