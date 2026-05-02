@@ -70,19 +70,6 @@ VALUES
     (5, 2, 8),
     (6, 3, 9);
     
-INSERT INTO staff_group_members (group_no, staff_no, date_joined) VALUES
-(1, 1, '2016-06-05'),
-(1, 2, '2019-09-15'),
-(2, 3, '2020-02-15'),
-(2, 4, '2013-10-08'),
-(3, 5, '2015-03-26'),
-(3, 6, '2021-07-15'),
-(3, 7, '2015-01-25'),
-(4, 8, '2022-02-28'),
-(4, 9, '2012-02-16'),
-(5, 10, '2023-01-10'),
-(5, 11, '2013-02-11');
-    
 SELECT * FROM manager;
 SELECT * FROM secretary;
 SELECT * FROM supervisor;
@@ -113,7 +100,7 @@ INSERT INTO property_for_rent (po_no, staff_no, street, area, city, postcode, ty
 (5, 14, '54 Spruce Square', 'Marylebone', 'London', 'NW1 9KL', 'Flat', 2, 1250.00, '2024-03-10');
 
 INSERT INTO property_owner (bo_no, full_name, street, area, city, postcode, telephone, email) VALUES
-(1, 'John Anderson', '123 Queen Street', 1'City Centre', 'London', 'EC2V 8AS', '07700900100', 'john.anderson@email.com'),
+(1, 'John Anderson', '123 Queen Street', 'City Centre', 'London', 'EC2V 8AS', '07700900100', 'john.anderson@email.com'),
 (2, 'Mary Williams', '45 Princes Street', 'City Centre', 'Edinburgh', 'EH2 2BY', '07700900101', 'mary.williams@email.com'),
 (1, 'Robert Brown', '78 Buchanan Street', 'Garnethill', 'Glasgow', 'G1 3HF', '07700900102', 'robert.brown@email.com'),
 (3, 'Patricia Jones', '22 High Street', 'Marylebone', 'London', 'NW1 6NR', '07700900103', 'patricia.jones@email.com'),
@@ -136,22 +123,24 @@ INSERT INTO client (bo_no, full_name, street, area, city, postcode, telephone, e
 (1, 'Jonathan King', '65 Byres Road', 'Garnethill', 'Glasgow', 'G12 8TJ', '07700100012', 'jonathan.king@email.com', '2023-12-01');
 
 INSERT INTO lease_agreement (staff_no, client_no, pfr_no, monthly_rent, payment_method, rent_deposit, deposit_status, date_start, date_end, date_expired) VALUES
-(10, 1, 1, 1200.00, 'Bank Transfer', 1200.00, 'paid', '2024-01-15', '2024-10-15', NULL),
-(11, 2, 2, 950.00, 'Credit Card', 950.00, 'paid', '2024-02-01', '2024-11-01', NULL),
-(12, 3, 3, 800.00, 'Cash', 800.00, 'unpaid', '2023-03-10', '2023-12-10', '2023-12-10'),
-(13, 4, 4, 1800.00, 'Bank Transfer', 1800.00, 'paid', '2024-03-20', '2024-12-20', NULL),
-(10, 5, 5, 1100.00, 'Credit Card', 1100.00, 'unpaid', '2024-04-05', '2025-01-05', NULL);
+(10, 1, 11, 1200.00, 'Bank Transfer', 1200.00, 'paid', '2024-01-15', '2024-10-15', NULL),
+(11, 2, 12, 950.00, 'Credit Card', 950.00, 'paid', '2024-02-01', '2024-11-01', NULL),
+(12, 3, 13, 800.00, 'Cash', 800.00, 'unpaid', '2023-03-10', '2023-12-10', '2023-12-10'),
+(13, 4, 14, 1800.00, 'Bank Transfer', 1800.00, 'paid', '2024-03-20', '2024-12-20', NULL),
+(10, 5, 15, 1100.00, 'Credit Card', 1100.00, 'unpaid', '2024-04-05', '2025-01-05', NULL);
+
+SELECT * FROM property_for_rent;
 
 INSERT INTO property_inspection (pfr_no, staff_no, pi_date, comments) VALUES
-(1, 10, '2024-01-20', 'Property in good condition, minor wear and tear'),
-(2, 11, '2024-02-15', 'Boiler needs servicing, otherwise fine'),
-(1, 14, '2024-03-10', 'Tenant keeping property clean'),
-(6, 12, '2023-06-01', 'Property needs repainting'),
-(4, 13, '2024-01-25', 'Excellent condition, new appliances'),
-(2, 11, '2024-04-05', 'Garden needs maintenance'),
-(5, 10, '2024-02-28', 'Damp issue in bathroom'),
-(6, 15, '2023-09-15', 'Vacant property, ready for new tenant'),
-(4, 16, '2024-03-20', 'Leaking tap in kitchen repaired');
+(11, 10, '2024-01-20', 'Property in good condition, minor wear and tear'),
+(12, 11, '2024-02-15', 'Boiler needs servicing, otherwise fine'),
+(11, 14, '2024-03-10', 'Tenant keeping property clean'),
+(16, 12, '2023-06-01', 'Property needs repainting'),
+(14, 13, '2024-01-25', 'Excellent condition, new appliances'),
+(12, 11, '2024-04-05', 'Garden needs maintenance'),
+(15, 10, '2024-02-28', 'Damp issue in bathroom'),
+(16, 15, '2023-09-15', 'Vacant property, ready for new tenant'),
+(14, 16, '2024-03-20', 'Leaking tap in kitchen repaired');
 
 INSERT INTO property_requirements_detail (client_no, preferred_type, max_rent, comments) VALUES
 (1, 'Flat', 1300.00, 'Prefer ground floor, near tube station'),
@@ -168,16 +157,16 @@ INSERT INTO property_requirements_detail (client_no, preferred_type, max_rent, c
 (12, 'House', 1950.00, 'Home office space needed');
 
 INSERT INTO advertisement (pfr_no, np_no, ad_date, cost) VALUES
-(1, 1, '2024-01-10', 250.00),
-(2, 2, '2024-02-01', 200.00),
-(3, 3, '2023-03-05', 300.00),
-(4, 1, '2024-03-15', 350.00),
-(5, 2, '2024-04-01', 225.00),
-(6, 3, '2024-04-10', 275.00),
-(7, 1, '2024-01-15', 400.00),
-(8, 2, '2024-02-20', 180.00),
-(9, 3, '2024-03-25', 320.00),
-(10, 1, '2024-04-05', 260.00);
+(11, 1, '2024-01-10', 250.00),
+(12, 2, '2024-02-01', 200.00),
+(13, 3, '2023-03-05', 300.00),
+(14, 1, '2024-03-15', 350.00),
+(15, 2, '2024-04-01', 225.00),
+(16, 3, '2024-04-10', 275.00),
+(17, 1, '2024-01-15', 400.00),
+(18, 2, '2024-02-20', 180.00),
+(19, 3, '2024-03-25', 320.00),
+(20, 1, '2024-04-05', 260.00);
 
 INSERT INTO newspaper_company (npc_name, street, area, city, postcode, telephone) VALUES
 ('Daily Herald', '123 Fleet Street', 'City Centre', 'London', 'EC4A 2BB', '02079460001'),
@@ -185,12 +174,12 @@ INSERT INTO newspaper_company (npc_name, street, area, city, postcode, telephone
 ('Glasgow Chronicle', '67 Hope Street', 'Garnethill', 'Glasgow', 'G2 6AE', '01415550001');
 
 INSERT INTO viewing (pfr_no, client_no, viewing_date, comments) VALUES
-(1, 1, '2024-01-18', 'Client liked the property, considering offer'),
-(2, 2, '2024-02-10', 'Too small for family, will continue search'),
-(3, 3, '2023-05-20', 'Perfect location, submitted application'),
-(4, 4, '2024-03-25', 'Excellent condition, very interested'),
-(5, 5, '2024-04-08', 'Needs renovation, client not interested'),
-(1, 6, '2024-01-22', 'Second viewing, ready to sign lease'),
-(6, 7, '2024-04-12', 'Good value for money, considering'),
-(7, 8, '2024-01-20', 'Loved the garden, will proceed'),
-(8, 9, '2024-03-28', 'Too far from transport links, declined');
+(11, 1, '2024-01-18', 'Client liked the property, considering offer'),
+(12, 2, '2024-02-10', 'Too small for family, will continue search'),
+(13, 3, '2023-05-20', 'Perfect location, submitted application'),
+(14, 4, '2024-03-25', 'Excellent condition, very interested'),
+(15, 5, '2024-04-08', 'Needs renovation, client not interested'),
+(11, 6, '2024-01-22', 'Second viewing, ready to sign lease'),
+(16, 7, '2024-04-12', 'Good value for money, considering'),
+(17, 8, '2024-01-20', 'Loved the garden, will proceed'),
+(18, 9, '2024-03-28', 'Too far from transport links, declined');

@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS supervisor (
     group_no INT NOT NULL UNIQUE,
     secretary_no INT NOT NULL,
     FOREIGN KEY (staff_no) REFERENCES staff(staff_no),
-    FOREIGN KEY (secretary) REFERENCES secretary(staff_no)
+    FOREIGN KEY (secretary_no) REFERENCES secretary(staff_no)
 );
 
 CREATE TABLE IF NOT EXISTS staff_group_member (
@@ -68,6 +68,20 @@ CREATE TABLE IF NOT EXISTS staff_group_member (
     FOREIGN KEY (group_no) REFERENCES supervisor(group_no),
     FOREIGN KEY (staff_no) REFERENCES staff(staff_no)
 );
+
+CREATE TABLE IF NOT EXISTS property_owner (
+    po_no SERIAL PRIMARY KEY,
+    bo_no INT NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    street VARCHAR(100),
+    area VARCHAR(50),
+    city VARCHAR(50),
+    postcode CHAR(15),
+    telephone CHAR(15),
+    email VARCHAR(100),    
+    FOREIGN KEY (bo_no) REFERENCES branch_office(bo_no)
+);
+
 
 CREATE TABLE IF NOT EXISTS property_for_rent (
     pfr_no SERIAL PRIMARY KEY,
@@ -83,6 +97,20 @@ CREATE TABLE IF NOT EXISTS property_for_rent (
     date_withdrawn DATE,
     FOREIGN KEY (po_no) REFERENCES property_owner(po_no),
     FOREIGN KEY (staff_no) REFERENCES staff(staff_no)
+);
+
+CREATE TABLE IF NOT EXISTS client (
+    client_no SERIAL PRIMARY KEY,
+    bo_no INT NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    street VARCHAR(100),
+    area VARCHAR(50),
+    city VARCHAR(50),
+    postcode CHAR(15),
+    telephone CHAR(15),
+    email VARCHAR(100),
+    date_registered DATE NOT NULL,
+    FOREIGN KEY (bo_no) REFERENCES branch_office(bo_no)
 );
 
 CREATE TABLE IF NOT EXISTS lease_agreement (
@@ -117,32 +145,6 @@ CREATE TABLE IF NOT EXISTS property_inspection (
     FOREIGN KEY (staff_no) REFERENCES staff(staff_no)
 );
 
-CREATE TABLE IF NOT EXISTS property_owner (
-    po_no SERIAL PRIMARY KEY,
-    bo_no INT NOT NULL,
-    full_name VARCHAR(100) NOT NULL,
-    street VARCHAR(100),
-    area VARCHAR(50),
-    city VARCHAR(50),
-    postcode CHAR(15),
-    telephone CHAR(15),
-    email VARCHAR(100),    
-    FOREIGN KEY (bo_no) REFERENCES branch_office(bo_no)
-);
-
-CREATE TABLE IF NOT EXISTS client (
-    client_no SERIAL PRIMARY KEY,
-    bo_no INT NOT NULL,
-    full_name VARCHAR(100) NOT NULL,
-    street VARCHAR(100),
-    area VARCHAR(50),
-    city VARCHAR(50),
-    postcode CHAR(15),
-    telephone CHAR(15),
-    email VARCHAR(100),
-    date_registered DATE NOT NULL,
-    FOREIGN KEY (bo_no) REFERENCES branch_office(bo_no)
-);
 
 CREATE TABLE IF NOT EXISTS property_requirements_detail (
     prd_no SERIAL PRIMARY KEY,
@@ -154,16 +156,6 @@ CREATE TABLE IF NOT EXISTS property_requirements_detail (
     FOREIGN KEY (client_no) REFERENCES client(client_no)
 );
 
-CREATE TABLE IF NOT EXISTS advertisement (
-    ad_no SERIAL PRIMARY KEY,
-    pfr_no INT NOT NULL,
-    np_no INT NOT NULL,
-    ad_date DATE,
-    cost DEC(10, 2) NOT NULL,
-    FOREIGN KEY (pfr_no) REFERENCES property_for_rent(pfr_no),
-    FOREIGN KEY (np_no) REFERENCES newspaper_company(npc_no)
-);
-
 CREATE TABLE IF NOT EXISTS newspaper_company (
     npc_no SERIAL PRIMARY KEY,
     npc_name VARCHAR(100) NOT NULL,
@@ -172,6 +164,17 @@ CREATE TABLE IF NOT EXISTS newspaper_company (
     city VARCHAR(50),
     postcode CHAR(15),
     telephone CHAR(15)
+);
+
+
+CREATE TABLE IF NOT EXISTS advertisement (
+    ad_no SERIAL PRIMARY KEY,
+    pfr_no INT NOT NULL,
+    np_no INT NOT NULL,
+    ad_date DATE,
+    cost DEC(10, 2) NOT NULL,
+    FOREIGN KEY (pfr_no) REFERENCES property_for_rent(pfr_no),
+    FOREIGN KEY (np_no) REFERENCES newspaper_company(npc_no)
 );
 
 CREATE TABLE IF NOT EXISTS viewing (
@@ -200,3 +203,20 @@ SELECT * FROM manager;
 SELECT * FROM next_of_kin;
 SELECT * FROM staff;
 SELECT * FROM branch_office;
+
+DROP TABLE IF EXISTS branch_office;
+DROP TABLE IF EXISTS staff;
+DROP TABLE IF EXISTS next_of_kin;
+DROP TABLE IF EXISTS manager;
+DROP TABLE IF EXISTS secretary;
+DROP TABLE IF EXISTS supervisor;
+DROP TABLE IF EXISTS staff_group_member;
+DROP TABLE IF EXISTS property_for_rent;
+DROP TABLE IF EXISTS lease_agreement;
+DROP TABLE IF EXISTS property_inspection;
+DROP TABLE IF EXISTS property_owner;
+DROP TABLE IF EXISTS client;
+DROP TABLE IF EXISTS property_requirements_detail;
+DROP TABLE IF EXISTS newspaper_company;
+DROP TABLE IF EXISTS advertisement;
+DROP TABLE IF EXISTS viewing;
