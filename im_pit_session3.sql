@@ -3,7 +3,7 @@ DELETE FROM lease_agreement WHERE la_id = 7;
 
 -- Link properties to owners and branches
 SELECT pfr.pfr_id, pfr.street, pfr.city, pfr.monthly_rent,
-u.firstname, u.last_name AS owner_name,
+u.first_name, u.last_name,
 bo.city AS branch_city
 FROM property_for_rents pfr
 JOIN property_owners po ON pfr.po_id = po.po_id
